@@ -143,6 +143,11 @@
     margin: auto;
 }
 
+.skill-img:hover {
+    height: 5vmax;
+    width: 5vmax;
+}
+
 .skill-name {
     font-family: "ProductSansRegular";
     color: white;
@@ -154,18 +159,25 @@
 #nation-buttons {
     display: flex;
     flex-direction: column;
-    height: 48.5vmax;
-    margin-top: 8vmax;
-    margin-left: 2vmax;
+    height: 40vmax;
+    margin-top: 5vmax;
 }
 
 .nation-button {
     font-family: 'ProductSansBold';
-    font-size: 1.5vmax;
+    font-size: 1.10vmax;
     border: none;
     background: none;
     text-align: left;
-    margin-top: 0.75vmax;
-    margin-bottom: 0.75vmax;
+    margin-top: 0.25vmax;
+    margin-bottom: 0.25vmax;
     color: white;
+    padding: 1vmax;
+    padding-left: 3vmax;
+    padding-right: 3vmax;
+}
+
+.nation-button:hover {
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5),
+        rgba(255, 255, 255, 0));
 }
