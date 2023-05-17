@@ -1,0 +1,29 @@
+@font-face {
+    font-family: 'ProductSansBoldItalic';
+    src: url('../fonts/product-sans/ProductSansBoldItalic.ttf');
+}
+
+@font-face {
+    font-family: 'ProductSansItalic';
+    src: url('../fonts/product-sans/ProductSansItalic.ttf');
+}
+
+@font-face {
+    font-family: 'ProductSansBold';
+    src: url('../fonts/product-sans/ProductSansBold.ttf');
+}
+
+@font-face {
+    font-family: 'ProductSansRegular';
+    src: url('../fonts/product-sans/ProductSansRegular.ttf');
+}
+
+@font-face {
+    font-family: 'SegoeUIRegular';
+    src: url('../fonts/segoeUI/SegoeUI.ttf');
+}
+
+@font-face {
+    font-family: 'GenshinFont';
+    src: url('/fonts/genshin-font/zh-cn.ttf');
+}
