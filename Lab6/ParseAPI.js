@@ -158,6 +158,7 @@ class NationSwitcher {
     }
 }
 
+// DRIVER
 const ns = new NationSwitcher();
 await ns.parseAPI.getAllCharacters();
 ns.generateCharacters(null);
