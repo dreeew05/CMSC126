@@ -1,10 +1,9 @@
 import { CreateElement } from "./CreateElement.js";
 
 export class GenerateCharacters {
-    constructor(nation, characters) {
+    constructor(nation) {
         // PASSED VALUE
         this.nation     = nation;
-        this.characters = characters;
 
         // METHODS
         this.generateIcons();
@@ -16,11 +15,14 @@ export class GenerateCharacters {
     }
 
     getCharacters() {
-        return this.characters;
+        return this.getNation().getCharacters();
+    }
+
+    getBackground() {
+        return this.getNation().getBackground();
     }
 
     generateIcons() {
-        // const iconHolder = document.getElementById("characters");
         const body        = document.body,
               holderID    = "characters",
               holderExist = document.getElementById(holderID);
@@ -92,37 +94,7 @@ export class GenerateCharacters {
             skills      = characterJSON.skills,
             title       = characterJSON.title,
             rarity      = characterJSON.rarity,
-            bgImage     = null;
-
-        const mondstadtBG = "/assets/mondstadt_bg.jpg",
-              liyueBG     = "/assets/liyue_bg.jpg",
-              inazumaBG   = "/assets/inazuma_bg.jpg",
-              sumeruBG    = "/assets/sumeru_bg.jpg",
-              outlanderBG = "/assets/outlander_bg.jpg",
-              unknownBG   = "/assets/dragonspine_bg.jpg";
-
-        switch(this.getNation()) {
-            case "Mondstadt":
-                bgImage = mondstadtBG;
-                break;
-            case "Liyue":
-                bgImage = liyueBG;
-                break;
-            case "Inazuma":
-                bgImage = inazumaBG;
-                break;
-            case "Sumeru":
-                bgImage = sumeruBG;
-                break;
-            case "Outlander":
-                bgImage = outlanderBG;
-                break;
-            case "Unknown":
-                bgImage = unknownBG;
-                break;
-            default:
-                break;
-        }
+            bgImage     = this.getBackground();
 
         const image      = document.getElementById('character-portrait'),
               background = document.getElementById('background'),
@@ -161,8 +133,7 @@ export class GenerateCharacters {
         const skillsHolder = new CreateElement("div", holderID, null)
                            .createElement();
         parentDiv.appendChild(skillsHolder);
-
-        // let skillsObject = {};
+        
         for(let i = 0; i < skills.length; i++) {
 
             let skillLink = null;
@@ -187,11 +158,6 @@ export class GenerateCharacters {
                 default:
                     break;
             }
-
-            // skillsObject["talent-".concat(i)] = {
-            //     skillName : skills[i].name,
-            //     skillsImage : skillLink
-            // }
 
             let skillDiv   = new CreateElement("div", null, "skill-div")
                              .createElement(),

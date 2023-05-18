@@ -1,7 +1,8 @@
 export class Nation {
-    constructor(nation) {
+    constructor(nation, background) {
         // PASSED VARIABLES
-        this.nation = nation;
+        this.nation     = nation;
+        this.background = background;
 
         // GLOBAL VARIABLES
         this.characters = [];
@@ -17,5 +18,9 @@ export class Nation {
 
     addCharacterToNation(character) {
         this.getCharacters().push(character);
+    }
+
+    getBackground() {
+        return this.background;
     }
 }

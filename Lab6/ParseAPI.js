@@ -4,13 +4,21 @@ import { CreateElement } from "./CreateElement.js";
 
 class ParseAPI {
     constructor() {
+        //  CONSTANT VARIABLES
+        const mondstadtBG = "/assets/mondstadt_bg.jpg",
+              liyueBG     = "/assets/liyue_bg.jpg",
+              inazumaBG   = "/assets/inazuma_bg.jpg",
+              sumeruBG    = "/assets/sumeru_bg.jpg",
+              outlanderBG = "/assets/outlander_bg.jpg",
+              unknownBG   = "/assets/dragonspine_bg.jpg";
+
         // GLOBAL VARIABLES
-        this.mondstadt = new Nation("Mondstadt");
-        this.liyue     = new Nation("Liyue");
-        this.inazuma   = new Nation("Inazuma");
-        this.sumeru    = new Nation("Sumeru");
-        this.outlander = new Nation("Outlander");
-        this.unknown   = new Nation("Unknown");
+        this.mondstadt = new Nation("Mondstadt", mondstadtBG);
+        this.liyue     = new Nation("Liyue", liyueBG);
+        this.inazuma   = new Nation("Inazuma", inazumaBG);
+        this.sumeru    = new Nation("Sumeru", sumeruBG);
+        this.outlander = new Nation("Outlander", outlanderBG);
+        this.unknown   = new Nation("Unknown", unknownBG);
     }
 
     async fetchResponse(link) {
@@ -109,55 +117,47 @@ class NationSwitcher {
             // ACTION WHEN BUTTON IS CLICKED
             button.onclick = () => {
 
-                let nation     = null,
-                    characters = null;
+                let nation = null;
 
                 switch(button.textContent) {
                     case "Mondstadt":
-                        nation     = this.parseAPI.mondstadt.getNation();
-                        characters = this.parseAPI.mondstadt.getCharacters();
+                        nation = this.parseAPI.mondstadt;
                         break;
                     case "Liyue":
-                        nation     = this.parseAPI.liyue.getNation();
-                        characters = this.parseAPI.liyue.getCharacters();
+                        nation = this.parseAPI.liyue;
                         break;
                     case "Inazuma":
-                        nation     = this.parseAPI.inazuma.getNation();
-                        characters = this.parseAPI.inazuma.getCharacters();
+                        nation = this.parseAPI.inazuma;
                         break;
                     case "Sumeru":
-                        nation     = this.parseAPI.sumeru.getNation();
-                        characters = this.parseAPI.sumeru.getCharacters();
+                        nation = this.parseAPI.sumeru;
                         break;
                     case "Outlander":
-                        nation     = this.parseAPI.outlander.getNation();
-                        characters = this.parseAPI.outlander.getCharacters();
+                        nation = this.parseAPI.outlander;
                         break;
                     case "Unknown":
-                        nation     = this.parseAPI.unknown.getNation();
-                        characters = this.parseAPI.unknown.getCharacters();
+                        nation = this.parseAPI.unknown;
                         break;
                     default:
                         break;
                 }
-                this.generateCharacters(nation, characters);
+                this.generateCharacters(nation);
             }
         }
     }
-    async generateCharacters(nation, characters) {
-        // DEFAULT
-        const defaultNation     = this.parseAPI.mondstadt.getNation(),
-              defaultCharacters = this.parseAPI.mondstadt.getCharacters();
 
-        if(nation == null && characters == null) {
-            nation     = defaultNation;
-            characters = defaultCharacters;
+    async generateCharacters(nation) {
+        // DEFAULT
+        const defaultNation = this.parseAPI.mondstadt;
+
+        if(nation == null) {
+            nation = defaultNation;
         }
 
-        new GenerateCharacters(nation, characters);
+        new GenerateCharacters(nation);
     }
 }
 
 const ns = new NationSwitcher();
 await ns.parseAPI.getAllCharacters();
-ns.generateCharacters(null, null);
+ns.generateCharacters(null);
