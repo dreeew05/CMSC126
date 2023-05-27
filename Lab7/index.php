@@ -52,6 +52,24 @@
         </div>
 
         <!-- SELECT SPECIFIC DATA -->
-
+        <div id="select-data">
+            <h1>Select Data</h1>
+            <div id="select-div">
+                <input type="number" id="input-select">
+                <button id="button-select">Submit</button>
+            </div>
+            <table id="select-table">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                </tr>
+            </table>
+        </div>
+        
     </body>
 </html>
