@@ -1,0 +1,35 @@
+#form-data, #display-data {
+    width: 80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem; 
+    padding: 2%;
+    border: 2px solid black;
+    border-radius: 2vmax;
+}
+
+input, button {
+    width: 100%;
+    height: 2vmax;
+    border: 1px solid black;
+    border-radius: 0.25vmax;
+    box-shadow: none;
+    margin-top: 0.25vmax;
+    margin-bottom: 0.25vmax;
+}
+
+table {
+    margin: 0 auto;
+    width: 100%;
+}
+
+h1 {
+    margin-bottom: 2vmax;
+}
+
+img {
+    height:5vmax;
+    width: 5vmax;
+    object-fit: cover;
+}
