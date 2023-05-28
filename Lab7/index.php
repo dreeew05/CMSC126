@@ -19,9 +19,9 @@
     <body>
         
         <!-- INSERT DATA -->
-        <div id="form-data">
+        <div id="insert-data">
             <h1>Insert Data</h1>
-            <form id="register-details" action="AddEntry.php" method="post" enctype="multipart/form-data">
+            <form id="register-details" enctype="multipart/form-data">
                 <label for="name">Name</label><br>
                 <input type="text" name="name" id="name"><br>
                 <label for="age">Age</label><br>
@@ -32,7 +32,7 @@
                 <input type="text" name="address" id="address"><br>
                 <label for="imageFile" class="form-label">Image</label>
                 <input class="form-control" type="file" id="imageFile" name="imageFile">  
-                <button type="submit" class="btn btn-success">Submit</button>    
+                <button type="button" id="submit-insert" class="btn btn-success">Submit</button>    
             </form>
         </div>
 
@@ -69,6 +69,28 @@
                     <th>Action</th>
                 </tr>
             </table>
+        </div>
+
+        <!-- UPDATE DATA -->
+        <div id="update-data">
+            <h1>Update Data</h1>
+            <form enctype="multipart/form-data" id="form-update">
+                <label for="name-update">Name</label><br>
+                <input type="text" name="name" id="name-update" disabled><br>
+                <label for="age-update">Age</label><br>
+                <input type="number" name="age" id="age-update" disabled><br>
+                <label for="email-update">Email</label><br>
+                <input type="email" name="email" id="email-update" disabled><br>
+                <label for="address-update">Address</label><br>
+                <input type="text" name="address" id="address-update" disabled><br>
+                <h2>Image</h2>
+                <input type="radio" name="update-radio" id="radioOne" value="same" checked>
+                <label for="radioOne">Same Image</label>
+                <input type="radio" name="update-radio" id="radioTwo" value="new">
+                <label for="radioTwo">New Image</label>
+                <input class="form-control" type="file" id="imageFile-update" name="imageFile" disabled>  
+                <button type="button" id="submit-update" class="btn btn-success" disabled>Submit</button>
+            </form>
         </div>
         
     </body>

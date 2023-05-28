@@ -4,7 +4,8 @@
 
     class AddEntry {
 
-        private $name,
+        private $action,
+                $name,
                 $age,
                 $email,
                 $address,
@@ -19,10 +20,12 @@
             // METHODS
             $this -> initializeConnection();
             $this -> setPostData();
-            $this -> insertEntry();
+            $this -> determineAction();
+
         }
 
         private function setPostData() {
+            $this -> action  = $_POST['action'];
             $this -> name    = $_POST['name'];
             $this -> age     = $_POST['age'];
             $this -> email   = $_POST['email'];
@@ -32,6 +35,19 @@
         private function initializeConnection() {
             $DB_NAME = 'cmsc126';
             $this -> dbConn = $this -> connector -> connectDatabase($DB_NAME);
+        }
+
+        private function determineAction() {
+            switch($this -> action) {
+                case 'insert':
+                    $this -> insertEntry();
+                    break;
+                case 'update':
+                    $this -> updateEntry();
+                    break;
+                default:
+                    break;
+            }
         }
 
         private function insertEntry() {
@@ -44,11 +60,15 @@
             
             $RESULT = $this -> dbConn -> query($QUERY);
 
-            if($RESULT) {
-                header("Location: http://localhost/CMSC126/Lab7/index.php");
-            }
-            die();
+            $response = array(
+                'operation' => 'fail'
+            );
 
+            if($RESULT) {
+                $response['operation'] = 'success';
+            }
+
+            echo json_encode($response);
         }
 
         private function uploadImage() {
@@ -66,6 +86,42 @@
 
                 return $imageName;
             }
+        }
+
+        private function updateEntry() {
+            $id    = $_POST['id'];
+            $radio = $_POST['update-radio'];
+
+            if($radio == 'new') {
+                $imageFileName = $this -> uploadImage();
+                $QUERY = "UPDATE lab7
+                      SET name = '{$this -> name}', age = '{$this -> age}',
+                            email = '{$this -> email}', 
+                            address = '{$this -> address}',
+                            imagePath = '$imageFileName'
+                      WHERE id = '$id'";
+            }
+            else {
+                $QUERY = "UPDATE lab7
+                      SET name = '{$this -> name}', age = '{$this -> age}',
+                            email = '{$this -> email}', 
+                            address = '{$this -> address}'
+                      WHERE id = '$id'";
+            }
+
+            
+
+            $RESULT = $this -> dbConn -> query($QUERY);
+
+            $response = array(
+                'operation' => 'fail'
+            );
+
+            if($RESULT) {
+                $response['operation'] = 'success';
+            }
+
+            echo json_encode($response);
         }
 
     }

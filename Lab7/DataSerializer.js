@@ -1,6 +1,6 @@
 export class DataSerializer {
 
-    async postData(postedData, phpFile) {
+    async retrieveData(postedData, phpFile) {
     
         return await this.serializeData(phpFile, postedData)
             .then(data => {
@@ -23,6 +23,17 @@ export class DataSerializer {
             body: JSON.stringify(jsonData)
         });
         // console.log(response.json());
+        return response.json();
+    }
+
+    async postForm(data, phpFile) {
+        const response = await fetch(
+            phpFile, {
+                method : 'POST', 
+                body : data
+            }
+        );
+        // console.log(response);
         return response.json();
     }
 

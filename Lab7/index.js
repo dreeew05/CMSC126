@@ -9,8 +9,29 @@ class AllFunctions {
         this.dataSerializer = new DataSerializer();
 
         // METHODS
+        this.insertData();
         this.displayAllData();
         this.displaySelectData();
+    }
+
+    insertData() {
+        const insertForm = document.getElementById('register-details'),
+              submitBtn  = document.getElementById('submit-insert');
+
+        submitBtn.onclick = async() => {
+            const phpFile  = 'PostForm.php',
+                  formData = new FormData(insertForm);
+
+            formData.append('action', 'insert');
+
+            const response = await this.dataSerializer.postForm(
+                        formData, phpFile
+            );
+
+            if(response['operation'] == 'success') {
+                this.displayAllData();
+            }
+        }
     }
 
     async getAllData() {
@@ -21,7 +42,7 @@ class AllFunctions {
                         'id' : null
                     }
               }
-        return await this.dataSerializer.postData(reqData, phpFile);
+        return await this.dataSerializer.retrieveData(reqData, phpFile);
     }
 
     async displayAllData() {
@@ -31,9 +52,7 @@ class AllFunctions {
               rowExists = document.querySelectorAll('.'.concat(rowClass));
         
         // DELETE ROWS
-        console.log(rowExists.length);
         if(rowExists.length > 0) {
-            // console.log(rowExists.length);
             rowExists.forEach(row => {
                 row.parentNode.removeChild(row);
             }) 
@@ -79,7 +98,7 @@ class AllFunctions {
                         'id' : searchID
                     }
               };
-        return await this.dataSerializer.postData(reqData, phpFile);
+        return await this.dataSerializer.retrieveData(reqData, phpFile);
     }
 
     displaySelectData() {
@@ -100,8 +119,6 @@ class AllFunctions {
                           null).createElement();
 
             let td = null;
-
-            // console.log(data);
 
             if(data != null) {
 
@@ -129,7 +146,7 @@ class AllFunctions {
                         const id = data[0]['id'];
 
                         updateBtn.onclick = () => {
-                            this.updateData();
+                            this.updateData(data[0]);
                         }
                         deleteBtn.onclick = async() => {
                             await this.deleteData(id);
@@ -159,8 +176,61 @@ class AllFunctions {
         }
     }
 
-    updateData() {
-        window.alert("Hello");
+    updateData(data) {
+        const formUpdate     = document.getElementById('form-update'),
+              nameField      = document.getElementById('name-update'),
+              ageField       = document.getElementById('age-update'),
+              emailField     = document.getElementById('email-update'),
+              addressField   = document.getElementById('address-update'),
+              imageFileField = document.getElementById('imageFile-update'),
+              submitBtn      = document.getElementById('submit-update'),
+
+              radioOne  = document.getElementById('radioOne'),
+              radioTwo  = document.getElementById('radioTwo');
+
+        // VALUES
+
+
+        // ENABLE FIELDS
+        nameField.disabled      = false;
+        ageField.disabled       = false;
+        emailField.disabled     = false;
+        addressField.disabled   = false;
+        submitBtn.disabled      = false;
+
+        // SET FORMER VALUES TO FIELDS
+        nameField.value      = data.name;
+        ageField.value       = data.age;
+        emailField.value     = data.email;
+        addressField.value   = data.address;
+
+        // ENABLE OR DISABLE FILE INPUT
+        radioOne.onclick = () => {
+            imageFileField.value = '';
+            imageFileField.disabled = true;
+        }
+        radioTwo.onclick = () => {
+            imageFileField.disabled = false;
+        }
+
+        submitBtn.onclick = async() => {
+
+            const phpFile = "PostForm.php",
+                  formData = new FormData(formUpdate);
+
+            formData.append('action', 'update');
+            formData.append('id', data.id);
+
+            const response = await this.dataSerializer.postForm(
+                formData, phpFile
+            );
+
+            console.log(response);
+
+            if(response['operation'] == 'success') {
+                this.displayAllData();
+            }
+        }
     }
 
     async deleteData(id) {
@@ -168,7 +238,9 @@ class AllFunctions {
               reqData = {
                     query : id
               },
-              response = await this.dataSerializer.postData(reqData, phpFile);
+              response = await this.dataSerializer.retrieveData(
+                    reqData, phpFile
+              );
 
         if(response['operation'] == 'success') {
             this.displayAllData();
