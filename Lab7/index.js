@@ -38,11 +38,13 @@ class AllFunctions {
         const phpFile = "ViewData.php",
               reqData = {
                     request : {
-                        'case' : 'one',
+                        'case' : 'all',
                         'id' : null
                     }
               }
-        return await this.dataSerializer.retrieveData(reqData, phpFile);
+        const response = await this.dataSerializer.retrieveData(reqData, phpFile);
+        console.log(response);
+        return response;
     }
 
     async displayAllData() {
@@ -94,7 +96,7 @@ class AllFunctions {
         const phpFile = "ViewData.php",
               reqData = {
                     request : {
-                        'case' : 'all',
+                        'case' : 'one',
                         'id' : searchID
                     }
               };
